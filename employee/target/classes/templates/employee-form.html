@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${employee.id != null} ? 'Edit Employee' : 'Add Employee'"></title>
+</head>
+<body>
+    <h1 th:text="${employee.id != null} ? 'Edit Employee' : 'Add Employee'"></h1>
+    <form th:action="@{${employee.id} != null ? '/api/employees/' + ${employee.id} : '/api/employees'}" 
+          method="post" th:object="${employee}">
+        <label>Name:</label>
+        <input type="text" th:field="*{name}" required/>
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+
+        <label>Position:</label>
+        <input type="text" th:field="*{position}" required/>
+        <span th:if="${#fields.hasErrors('position')}" th:errors="*{position}"></span>
+
+        <label>Salary:</label>
+        <input type="number" th:field="*{salary}" required/>
+        <span th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></span>
+
+        <button type="submit">Submit</button>
+        <a href="/employees">Cancel</a>
+    </form>
+</body>
+</html>
